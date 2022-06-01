@@ -8,7 +8,7 @@ const authRoutes = require('./routes/auth.js');
 
 // MIDDLEWARE
 app.use(express.json());
-app.use('cors');
+app.use(cors());
 app.use('/auth', authRoutes);
 
 //one main get from api

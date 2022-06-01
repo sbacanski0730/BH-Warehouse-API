@@ -28,7 +28,7 @@ UserSchema.pre('save', async function (next) {
 });
 
 UserSchema.methods.passwordVerify = async function (req_password) {
-	var isPasswordMatch = await bcrypt.compare(req_password, this.password);
+	let isPasswordMatch = await bcrypt.compare(req_password, this.password);
 	return isPasswordMatch;
 };
 

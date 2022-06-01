@@ -1,6 +1,6 @@
 const yup = require('yup');
 
-const userRegisterSchema = yup.object({
+const userRegisterSchemaValidation = yup.object({
 	name: yup //
 		.string()
 		.min(5, 'Name must be longer than 5 characters')
@@ -9,16 +9,16 @@ const userRegisterSchema = yup.object({
 		.string()
 		.email('Enter a valid email')
 		.required('Email is needed'),
-	password: yup
+	password: yup //
 		.string()
 		.min(5, 'Password must be longer than 5 characters')
 		.max(120, 'Password is too long')
 		.required('Password is necessary'),
 });
 
-module.exports.userRegisterSchema = userRegisterSchema;
+module.exports.userRegisterSchema = userRegisterSchemaValidation;
 
-const userLoginSchema = yup.object({
+const userLoginSchemaValidation = yup.object({
 	email: yup //
 		.string()
 		.required('Email is necessary'),
@@ -27,4 +27,4 @@ const userLoginSchema = yup.object({
 		.required('Password is necessary'),
 });
 
-module.exports.userLoginSchema = userLoginSchema;
+module.exports.userLoginSchema = userLoginSchemaValidation;
