@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+// const Product = require('./Product.js');
+const ProductSchema = require('./Product.js');
 
 //TODO: still more complex validation for data to schema
 const UserSchema = mongoose.Schema({
@@ -18,12 +20,12 @@ const UserSchema = mongoose.Schema({
 		require: true,
 		min: 5,
 	},
+	userProducts: { type: [] },
 });
 
 UserSchema.pre('save', async function (next) {
 	const salt = await bcrypt.genSalt(10);
 	this.password = await bcrypt.hash(this.password, salt);
-
 	next();
 });
 

@@ -5,11 +5,13 @@ const app = express();
 const cors = require('cors');
 
 const authRoutes = require('./routes/auth.js');
+const userActionsRoutes = require('./routes/userActions.js');
 
 // MIDDLEWARE
 app.use(express.json());
 app.use(cors());
 app.use('/auth', authRoutes);
+app.use('/user-action', userActionsRoutes);
 
 //one main get from api
 app.get('/', (req, res) => {
