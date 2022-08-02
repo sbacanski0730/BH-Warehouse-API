@@ -84,4 +84,43 @@ router.get('/user-products', async (req, res) => {
 	}
 });
 
+router.post('/post-product-delete', async (req, res) => {
+	orderSeparator();
+	console.log('Server got order - ADD NEW PRODUCT');
+
+	try {
+		let req_productId = req.body.productId,
+			req_token = req.headers.token;
+
+		const decode = jwt.verify(req_token, process.env.TOKEN_SECRET, (err, decode) => {
+			if (err) {
+				throw err;
+			}
+			return decode;
+		});
+
+		let userFromToken = await User.findById(decode);
+
+		const productToRemove = userFromToken.userProducts.filter(
+			product => product._id.toString() === req_productId
+		);
+
+		console.log('productToRemove', productToRemove);
+
+		if (productToRemove.length === 0) {
+			throw "Product doesn't exist";
+		}
+
+		userFromToken.userProducts = userFromToken.userProducts.filter(
+			product => product._id.toString() !== req_productId
+		);
+
+		await userFromToken.save();
+
+		res.json(resStandard(true, 'Product deleted'));
+	} catch (err) {
+		res.json(resStandard(false, err));
+	}
+});
+
 module.exports = router;
